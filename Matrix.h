@@ -9,17 +9,17 @@
 class Matrix {
 
 private:
+    int length;
     int height;
-    int width;
     std::vector<std::vector<int> > vectorMatrix;
     
 public:
     Matrix();
-    Matrix(int height, int width);
+    Matrix(int length, int height);
     ~Matrix();
 
     //Returns element in matrix at position [x,y] (returns 0 if OOB)
-    int getPosition(int x, int y);
+    int getPosition(int x, int y) const;
 
     //Sets element in matrix at position [x,y] to value (ignored if OOB)
     void setPosition(int x, int y, int value);
@@ -28,7 +28,11 @@ public:
     void clearPosition(int x, int y);
 
     //Prints matrix in the form: x1y1 x2y1 ... x1yn \n for all yß
-    void printMatrix();
+    void printMatrix() const;
+
+	Matrix operator+(const Matrix &matrix);
+	Matrix operator*(const Matrix &matrix);
+	
 };
 
 #endif
