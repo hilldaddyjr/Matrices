@@ -41,14 +41,14 @@ void Matrix::printMatrix() const {
         std::cout << "   ";
         
         //Y axis label
-        for(int y = 0; y < height; y++) {
+        for (int y = 0; y < height; y++) {
             std::cout << y << " ";
         }
 
         std::cout << std::endl;
 
         //Y axis
-        for(int y = 0; y < height; y++) {
+        for (int y = 0; y < height; y++) {
             std::cout << "--";
         }
 
@@ -86,12 +86,13 @@ Matrix Matrix::operator*(const Matrix &matrix) {
 
 		Matrix newMatrix(this->height, matrix.length);
 
-		for (int i = 0; i < matrix.length; i++) {
-			for (int j = 0; j < this->length; j++) {
-				//Finish Implementation
+		for (int i = 0; i < this->length; i++) {
+			for (int j = 0; j < matrix.height; j++) {
+				for (int k = 0; k < matrix.length) {
+                    newMatrix[i][j] += this->getPosition(i, k) * matrix.getPosition(k, j);
+                }
 			}
 		}
-			
 
 		return newMatrix;
 		}
