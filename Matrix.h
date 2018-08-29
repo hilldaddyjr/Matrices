@@ -16,6 +16,7 @@ private:
 public:
     Matrix();
     Matrix(int length, int height);
+    Matrix(const Matrix &matrix);
     ~Matrix();
 
     //Returns element in matrix at position [x,y] (returns 0 if OOB)
@@ -30,8 +31,15 @@ public:
     //Prints matrix in the form: x1y1 x2y1 ... x1yn \n for all yß
     void printMatrix() const;
 
+    int operator[][] (int x, int y);
+
 	Matrix operator+(const Matrix &matrix);
+    Matrix operator-(const Matrix &matrix);
+
 	Matrix operator*(const Matrix &matrix);
+    void operator*(int scalar);
+
+
 	
 };
 

@@ -12,6 +12,17 @@ Matrix::Matrix(int length, int height) {
         vectorMatrix.resize(height, std::vector<int>(length, 0));
 }
 
+Matrix(const Matrix &matrix) {
+    Matrix newMatrix(this->length, this->width);
+    
+    for(int i = 0; i < this->length; i++) {
+        for(int j = 0; j < this->width; j++) {
+            newMatrix.setPosition(i, j, this->getPosition(i, j));
+        }
+    }
+    return newMatrix;
+}
+
 Matrix::~Matrix() {
 }
 
@@ -65,20 +76,43 @@ void Matrix::printMatrix() const {
         }
 }
 
+int Matrix::operator[][](int x, int y) {
+    if(x < this->length && y < this->width) {
+        return this->getPosition(x, y);
+    }
+
+    throw "Index Out Of Bounds Exception"
+}
+
 Matrix Matrix::operator+(const Matrix &matrix) {
 	if (this->length == matrix.length && this->height == matrix.height) {
 		
 		Matrix newMatrix(this->length, this->height);
 
-		for (int i = 0; i < this->height; i++) {
-			for (int j = 0; j < length; j++) {
+		for (int i = 0; i < this->length; i++) {
+			for (int j = 0; j < this->height; j++) {
 				newMatrix.setPosition(i, j, this->getPosition(i, j) + matrix.getPosition(i, j));
 			}
 		}
 
 		return newMatrix;
-		}
-	throw "Matrices Have Incompatible Dimensions";
+	}
+	throw "Matrices Have Incompatible Dimensions Exception";
+}
+
+Matrix Matrix::operator-(const Matrix &matrix) {
+    if (this->length == matrix.length && this->height == matrix.height) {
+
+        Matrix newMatrix(this->length, this->height);
+
+        for(int i = 0; i < this->length; i++) {
+            for(int j = 0; j < this->height; j++) {
+                newMatrix.setPosition(i, j, this->getPosition(i, j) - matrix.getPosition(i, j));
+            }
+        }
+        return newMatrix;
+    }
+    throw "Matrices Have Incompatible Dimensions Exception";
 }
 
 Matrix Matrix::operator*(const Matrix &matrix) {
@@ -97,5 +131,14 @@ Matrix Matrix::operator*(const Matrix &matrix) {
 		return newMatrix;
 		}
 
-	throw "Matrices Have Incompatible Dimensions";
+	throw "Matrices Have Incompatible Dimensions Exception";
+}
+
+void Matrix::operator*(int scalar) {
+
+    for(int i = 0; i < this->length; i++) {
+        for(int j = 0; j < this->width); j++ {
+            this->setPosition(i, j, scalar * this->getPosition(i, j));
+        }
+    }
 }
