@@ -26,6 +26,13 @@ Matrix(const Matrix &matrix) {
 Matrix::~Matrix() {
 }
 
+void swap(Matrix& matrix1, Matrix& matrix2) {
+    
+    std::swap(matrix1.length, matrix2.length);
+    std::swap(matrix1.height, matrix2.height);
+    std::swap(matrix1.vectorMatrix, matrix2.vectorMatrix);
+}
+
 int Matrix::getPosition(int x, int y) const {
     if (x >= length || y >= height) {
         return 0;
@@ -82,6 +89,11 @@ int Matrix::operator[][](int x, int y) {
     }
 
     throw "Index Out Of Bounds Exception"
+}
+
+Matrix& Matrix::operator=(Matrix matrix) {
+    swap(*this, matrix);
+    return *this;
 }
 
 Matrix Matrix::operator+(const Matrix &matrix) {
