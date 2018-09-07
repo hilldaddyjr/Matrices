@@ -89,13 +89,10 @@ Matrix::ProxyMatrix Matrix::operator[](int x) {
 
 }
 
-<<<<<<< HEAD
-=======
 Matrix& Matrix::operator=(Matrix matrix) {
     swap(*this, matrix);
     return *this;
 }
->>>>>>> a6e995621e9efe38ece47f61165a666037453b09
 
 Matrix Matrix::operator+(const Matrix &matrix) {
 	if (this->length == matrix.length && this->height == matrix.height) {
