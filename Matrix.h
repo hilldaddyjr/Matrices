@@ -18,7 +18,12 @@ class Matrix {
 		}
 
 		int operator[](int y) {
-			return matrix->getPosition(x, y);
+
+			if (y < matrix->height) {
+				return matrix->getPosition(x, y);
+			}
+
+			throw "Index Out of Bounds Exception";
 		}
 	};
 
@@ -49,8 +54,6 @@ public:
 
 
 	ProxyMatrix operator[](int x);
-
-    int operator[][] (int x, int y);
    
 	Matrix& operator=(Matrix matrix);
 
@@ -59,7 +62,7 @@ public:
     Matrix operator-(const Matrix &matrix) const;
 
 	Matrix operator*(const Matrix &matrix) const;
-    void operator*(int scalar);
+    Matrix operator*(int scalar);
 
 
 	

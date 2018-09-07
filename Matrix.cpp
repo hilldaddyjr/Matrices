@@ -14,9 +14,13 @@ Matrix::Matrix(int length, int height) {
 
 Matrix::Matrix(const Matrix &matrix) {
     
-    for(int i = 0; i < this->length; i++) {
-        for(int j = 0; j < this->height; j++) {
-            setPosition(i, j, this->getPosition(i, j));
+	length = matrix.length;
+	height = matrix.height;
+	vectorMatrix.resize(height, std::vector<int>(length, 0));
+
+    for(int i = 0; i < length; i++) {
+        for(int j = 0; j < height; j++) {
+            setPosition(i, j, matrix.getPosition(i, j));
         }
     }
 }
@@ -94,7 +98,7 @@ Matrix& Matrix::operator=(Matrix matrix) {
     return *this;
 }
 
-Matrix Matrix::operator+(const Matrix &matrix) {
+Matrix Matrix::operator+(const Matrix &matrix) const {
 	if (this->length == matrix.length && this->height == matrix.height) {
 		
 		Matrix newMatrix(this->length, this->height);
@@ -104,13 +108,12 @@ Matrix Matrix::operator+(const Matrix &matrix) {
 				newMatrix.setPosition(i, j, this->getPosition(i, j) + matrix.getPosition(i, j));
 			}
 		}
-		newMatrix.printMatrix();
 		return newMatrix;
 	}
 	throw "Matrices Have Incompatible Dimensions Exception";
 }
 
-Matrix Matrix::operator-(const Matrix &matrix) {
+Matrix Matrix::operator-(const Matrix &matrix) const {
     if (this->length == matrix.length && this->height == matrix.height) {
 
         Matrix newMatrix(this->length, this->height);
@@ -125,7 +128,7 @@ Matrix Matrix::operator-(const Matrix &matrix) {
     throw "Matrices Have Incompatible Dimensions Exception";
 }
 
-Matrix Matrix::operator*(const Matrix &matrix) {
+Matrix Matrix::operator*(const Matrix &matrix) const {
 	if (this->length == matrix.height) {
 
 		Matrix newMatrix(this->height, matrix.length);
@@ -142,11 +145,14 @@ Matrix Matrix::operator*(const Matrix &matrix) {
 	throw "Matrices Have Incompatible Dimensions Exception";
 }
 
-void Matrix::operator*(int scalar) {
+Matrix Matrix::operator*(int scalar) {
+
+	Matrix newMatrix(this->length, this->height);
 
     for(int i = 0; i < this->length; i++) {
 		for (int j = 0; j < this->height; j++) {
-            this->setPosition(i, j, scalar * this->getPosition(i, j));
+            newMatrix.setPosition(i, j, scalar * this->getPosition(i, j));
         }
     }
+	return newMatrix;
 }
