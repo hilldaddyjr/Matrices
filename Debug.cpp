@@ -22,8 +22,20 @@ int main() {
 
 		matrix2.printMatrix();
 		std::cout << std::endl;
+	
+		std::cout << matrix[1][2];
+		std::cout << std::endl;
 
 		Matrix matrix3 = matrix + matrix2;
+
+		std::cout << "addition has occured" << std::endl;
+
+		//matrix.printMatrix();
+		std::cout << std::endl;
+
+		//matrix2.printMatrix();
+		std::cout << std::endl;
+
 		matrix3.printMatrix();
 		
 		int x;

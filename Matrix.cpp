@@ -12,15 +12,13 @@ Matrix::Matrix(int length, int height) {
         vectorMatrix.resize(height, std::vector<int>(length, 0));
 }
 
-Matrix(const Matrix &matrix) {
-    Matrix newMatrix(this->length, this->width);
+Matrix::Matrix(const Matrix &matrix) {
     
     for(int i = 0; i < this->length; i++) {
-        for(int j = 0; j < this->width; j++) {
-            newMatrix.setPosition(i, j, this->getPosition(i, j));
+        for(int j = 0; j < this->height; j++) {
+            setPosition(i, j, this->getPosition(i, j));
         }
     }
-    return newMatrix;
 }
 
 Matrix::~Matrix() {
@@ -76,13 +74,14 @@ void Matrix::printMatrix() const {
         }
 }
 
-int Matrix::operator[][](int x, int y) {
-    if(x < this->length && y < this->width) {
-        return this->getPosition(x, y);
+Matrix::ProxyMatrix Matrix::operator[](int x) {
+    if (x < this->length) {
+		return ProxyMatrix(this, x);
     }
+	throw "Index Out of Bounds Exception";
 
-    throw "Index Out Of Bounds Exception"
 }
+
 
 Matrix Matrix::operator+(const Matrix &matrix) {
 	if (this->length == matrix.length && this->height == matrix.height) {
@@ -94,7 +93,7 @@ Matrix Matrix::operator+(const Matrix &matrix) {
 				newMatrix.setPosition(i, j, this->getPosition(i, j) + matrix.getPosition(i, j));
 			}
 		}
-
+		newMatrix.printMatrix();
 		return newMatrix;
 	}
 	throw "Matrices Have Incompatible Dimensions Exception";
@@ -122,22 +121,20 @@ Matrix Matrix::operator*(const Matrix &matrix) {
 
 		for (int i = 0; i < this->length; i++) {
 			for (int j = 0; j < matrix.height; j++) {
-				for (int k = 0; k < matrix.length) {
-                    newMatrix[i][j] += this->getPosition(i, k) * matrix.getPosition(k, j);
+				for (int k = 0; k < matrix.length; k++) {
+					newMatrix.setPosition(i, j, newMatrix.getPosition(i, j) + (this->getPosition(i, k) * matrix.getPosition(k, j)));
                 }
 			}
 		}
-
 		return newMatrix;
 		}
-
 	throw "Matrices Have Incompatible Dimensions Exception";
 }
 
 void Matrix::operator*(int scalar) {
 
     for(int i = 0; i < this->length; i++) {
-        for(int j = 0; j < this->width); j++ {
+		for (int j = 0; j < this->height; j++) {
             this->setPosition(i, j, scalar * this->getPosition(i, j));
         }
     }

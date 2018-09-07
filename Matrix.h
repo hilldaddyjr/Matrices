@@ -8,6 +8,20 @@
 
 class Matrix {
 
+	struct ProxyMatrix {
+		Matrix * matrix;
+		int x;
+
+		ProxyMatrix(Matrix * matrix, int x) {
+			this->matrix = matrix;
+			this->x = x;
+		}
+
+		int operator[](int y) {
+			return matrix->getPosition(x, y);
+		}
+	};
+
 private:
     int length;
     int height;
@@ -31,7 +45,7 @@ public:
     //Prints matrix in the form: x1y1 x2y1 ... x1yn \n for all yß
     void printMatrix() const;
 
-    int operator[][] (int x, int y);
+	ProxyMatrix operator[](int x);
 
 	Matrix operator+(const Matrix &matrix);
     Matrix operator-(const Matrix &matrix);
