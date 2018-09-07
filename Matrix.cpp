@@ -24,6 +24,13 @@ Matrix::Matrix(const Matrix &matrix) {
 Matrix::~Matrix() {
 }
 
+void swap(Matrix& matrix1, Matrix& matrix2) {
+    
+    std::swap(matrix1.length, matrix2.length);
+    std::swap(matrix1.height, matrix2.height);
+    std::swap(matrix1.vectorMatrix, matrix2.vectorMatrix);
+}
+
 int Matrix::getPosition(int x, int y) const {
     if (x >= length || y >= height) {
         return 0;
@@ -82,6 +89,13 @@ Matrix::ProxyMatrix Matrix::operator[](int x) {
 
 }
 
+<<<<<<< HEAD
+=======
+Matrix& Matrix::operator=(Matrix matrix) {
+    swap(*this, matrix);
+    return *this;
+}
+>>>>>>> a6e995621e9efe38ece47f61165a666037453b09
 
 Matrix Matrix::operator+(const Matrix &matrix) {
 	if (this->length == matrix.length && this->height == matrix.height) {
